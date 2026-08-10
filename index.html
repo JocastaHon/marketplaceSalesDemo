@@ -568,7 +568,7 @@
   .promo-tab.active{ color:var(--zo-navy); }
   .promo-tab.active::after{ content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--zo-navy); border-radius:2px; }
   .promo-table-card{ background:#fff; border:1px solid var(--zo-line); border-radius:var(--zo-r-card); overflow:hidden; }
-  .promo-row{ display:grid; grid-template-columns:1.25fr .9fr 1.5fr 1.15fr 1fr 1.05fr; align-items:center; gap:14px; padding:18px 28px; border-bottom:1px solid var(--zo-line); font-size:12.5px; }
+  .promo-row{ display:grid; grid-template-columns:1.2fr .8fr 1.15fr 1.25fr 1fr .9fr .9fr; align-items:center; gap:14px; padding:18px 28px; border-bottom:1px solid var(--zo-line); font-size:12.5px; }
   .promo-row:last-child{ border-bottom:none; }
   .promo-row:not(.promo-head):hover{ background:var(--zo-row-hover); }
   .promo-head{ background:var(--zo-soft); color:#23358C; font-size:10px; letter-spacing:.04em; text-transform:uppercase; font-weight:700; }
@@ -1061,6 +1061,101 @@
 .myapp-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid #e4e7ec}.myapp-actions button{height:40px;border:1px solid #cbd5e4;border-radius:8px;background:#fff;color:#344054;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px}.myapp-actions .primary{background:#24469b;border-color:#24469b;color:#fff}
 @media(max-width:1100px){.mk-grid.mygrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}@media(max-width:760px){.mk-grid.mygrid{grid-template-columns:1fr!important}}
 </style>
+<style>
+.main.invoice-mode > .page-header-row{display:none !important;}
+.main.invoice-mode > .topbar{display:flex !important;}
+#newInvoiceView .invoice-bottom-row{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;align-items:start;}
+#newInvoiceView .invoice-bottom-row textarea{min-height:112px;}
+#newInvoiceView .invoice-bottom-row > div:last-child{margin-top:25px;align-self:start;}
+@media(max-width:850px){#newInvoiceView .invoice-bottom-row{grid-template-columns:1fr;}}
+
+#newInvoiceView .invoice-line-row{display:grid;grid-template-columns:minmax(0,1fr) 80px 150px 42px;gap:10px;align-items:end;background:var(--zo-soft);padding:14px;border:1px solid var(--zo-line);border-radius:10px;margin-bottom:10px;}
+#newInvoiceView .invoice-delete-btn{width:38px;height:38px;align-self:end;border:1.5px solid var(--zo-danger);border-radius:8px;background:#fff;color:var(--zo-danger);display:flex;align-items:center;justify-content:center;font-size:19px;line-height:1;cursor:pointer;transition:background .15s ease,border-color .15s ease,color .15s ease;}
+#newInvoiceView .invoice-delete-btn:hover:not(:disabled){background:var(--zo-danger-bg);border-color:var(--zo-danger);color:var(--zo-danger);}
+#newInvoiceView .btn-save:disabled{background:#d0d5dd!important;color:#fff!important;cursor:not-allowed!important;box-shadow:none!important;}
+#newInvoiceView .invoice-delete-btn:disabled{border-color:#d0d5dd;color:#98a2b3;background:#f2f4f7;cursor:not-allowed;opacity:.75;}
+@media(max-width:760px){#newInvoiceView .invoice-line-row{grid-template-columns:1fr 70px 120px 42px;}}
+</style>
+<style>
+#newInvoiceView .invoice-client-picker{position:relative;}
+#newInvoiceView .invoice-client-trigger{width:100%;height:40px;border:1px solid var(--zo-line-input);border-radius:9px;background:#fff;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-family:var(--zo-font);font-size:13px;color:var(--zo-text);cursor:pointer;text-align:left;}
+#newInvoiceView .invoice-client-trigger.placeholder{color:#98a2b3;}
+#newInvoiceView .invoice-client-trigger:focus{outline:none;border-color:var(--zo-navy);box-shadow:0 0 0 3px rgba(30,59,138,.08);}
+#newInvoiceView .invoice-client-menu{display:none;position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:120;background:#fff;border:1px solid var(--zo-line);border-radius:10px;box-shadow:0 12px 30px rgba(16,24,40,.14);padding:7px;}
+#newInvoiceView .invoice-client-menu.open{display:block;}
+#newInvoiceView .invoice-client-search{display:flex;align-items:center;gap:8px;height:38px;border:1px solid var(--zo-line-input);border-radius:8px;padding:0 10px;margin-bottom:6px;}
+#newInvoiceView .invoice-client-search:focus-within{border-color:var(--zo-navy);box-shadow:0 0 0 3px rgba(30,59,138,.08);}
+#newInvoiceView .invoice-client-search input{border:0!important;outline:0!important;box-shadow:none!important;padding:0!important;height:30px!important;}
+#newInvoiceView .invoice-client-options{max-height:190px;overflow-y:auto;}
+#newInvoiceView .invoice-client-option{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;}
+#newInvoiceView .invoice-client-option:hover{background:var(--zo-soft);}
+#newInvoiceView .invoice-client-option-avatar{width:30px;height:30px;border-radius:8px;background:var(--zo-accent-tint);color:var(--zo-navy);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none;}
+#newInvoiceView .invoice-client-option strong{display:block;font-size:12.5px;color:var(--zo-heading);}
+#newInvoiceView .invoice-client-option small{display:block;font-size:11px;color:var(--zo-muted);margin-top:2px;}
+#newInvoiceView .invoice-client-empty{padding:14px 10px;color:var(--zo-muted);font-size:12px;text-align:center;}
+#newInvoiceEmail[readonly]{background:#f8fafc;color:#475467;}
+#newInvoiceView .invoice-client-option.new-client{border-top:1px solid var(--zo-line);margin-top:5px;color:var(--zo-navy);font-weight:700;}
+
+#newInvoiceView .invoice-manual-client{padding:8px 6px 4px;display:grid;gap:7px;}
+#newInvoiceView .invoice-manual-client label{font-size:11px;font-weight:700;color:var(--zo-heading);margin-top:2px;}
+#newInvoiceView .invoice-manual-client input{width:100%;height:38px;border:1px solid var(--zo-line-input);border-radius:8px;padding:0 10px;font-family:var(--zo-font);font-size:12.5px;outline:none;}
+#newInvoiceView .invoice-manual-client input:focus{border-color:var(--zo-navy);box-shadow:0 0 0 3px rgba(30,59,138,.08);}
+#newInvoiceView .invoice-manual-back{border:0;background:transparent;color:var(--zo-navy);font-weight:700;text-align:left;padding:3px 0 7px;cursor:pointer;}
+#newInvoiceView .invoice-manual-use{height:38px;border:0;border-radius:8px;background:var(--zo-navy);color:#fff;font-weight:700;cursor:pointer;margin-top:5px;}
+#newInvoiceView .invoice-manual-use:hover{background:var(--zo-navy-hover);}
+</style>
+
+<style>
+.audit-page{padding-top:4px}.audit-toolbar{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--zo-line);border-radius:12px;padding:14px;margin-bottom:18px;box-shadow:0 2px 8px rgba(16,24,40,.04)}.audit-search{flex:1;max-width:none;min-width:0;display:flex;align-items:center;gap:8px;border:1px solid var(--zo-line-input);border-radius:9px;padding:9px 12px}.audit-search input{border:0;outline:0;width:100%;font:inherit}.audit-filter{height:38px;border:1px solid var(--zo-line-input);border-radius:9px;background:#fff;padding:0 12px}.audit-range{display:flex;border:1px solid var(--zo-line-input);border-radius:9px;padding:3px;margin-left:0}.audit-range button{border:0;background:transparent;padding:7px 12px;border-radius:7px;font-weight:700;color:var(--zo-muted);cursor:pointer}.audit-range button.active{background:var(--zo-accent-tint);color:var(--zo-navy)}.audit-count{margin-left:auto;font-size:12px;color:var(--zo-muted);font-weight:700}.audit-card{background:#fff;border:1px solid var(--zo-line);border-radius:12px;overflow:hidden}.audit-card-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--zo-line)}.audit-card-title{font-weight:800;font-size:14px}.audit-card-sub{font-size:11px;color:var(--zo-muted);margin-top:2px}.audit-live{font-size:11px;font-weight:700;color:var(--zo-live);background:var(--zo-live-bg);padding:4px 9px;border-radius:999px}.audit-row{display:grid;grid-template-columns:.8fr 1.35fr 1fr 1fr .65fr;gap:16px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--zo-line);font-size:12.5px}.audit-head{background:var(--zo-soft);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--zo-muted);font-weight:800}.audit-user{display:flex;align-items:center;gap:9px;font-weight:700}.audit-avatar{width:28px;height:28px;border-radius:50%;background:#e8f1ff;color:var(--zo-navy);display:grid;place-items:center;font-size:10px;font-weight:800}.audit-action{display:inline-flex;width:max-content;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:700;background:#eef2ff;color:var(--zo-navy)}.audit-action.login{background:var(--zo-success-bg);color:var(--zo-success)}.audit-action.logout{background:var(--zo-neutral-bg);color:var(--zo-neutral)}.audit-action.invoice{background:#eaf4ff;color:#2e6fc5}.audit-action.client{background:#f4ebff;color:#6941c6}.audit-action.meeting{background:#fff1e6;color:#b54708}.audit-footer{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;font-size:12px;color:var(--zo-muted)}.audit-pagination{display:flex;align-items:center;gap:6px}.audit-pagination .page-num{border:1px solid var(--zo-line-input);background:#fff;color:var(--zo-muted)}.audit-pagination .page-num:hover{border-color:var(--zo-navy);color:var(--zo-navy);background:var(--zo-accent-tint)}.audit-pagination .page-num.active{border-color:var(--zo-navy);background:var(--zo-navy);color:#fff}.audit-pagination .page-btn:disabled{opacity:.4;cursor:not-allowed}.audit-pagination .page-btn:disabled:hover{border-color:var(--zo-line);color:var(--zo-muted)}
+</style>
+
+<style>
+/* Audit Trail: natural height when a page has fewer rows */
+#auditView.audit-page{height:auto;min-height:0;display:block;overflow:visible;padding-bottom:18px}
+#auditView .audit-card{display:block;min-height:0}
+#auditView #auditRows{display:block}
+#auditView #auditRows .audit-row{min-height:54px}
+#auditView .audit-footer{border-top:1px solid var(--zo-line);background:#fff}
+</style>
+
+<style>
+/* App Setup Requests: let search use the available toolbar width */
+#setupView .setup-toolbar .search-box{
+  flex:1 1 520px !important;
+  width:auto !important;
+  max-width:none !important;
+  min-width:280px !important;
+}
+#setupView .setup-toolbar .dropdown-filter{flex:0 0 auto;}
+#setupView .setup-toolbar .refresh-btn{flex:0 0 auto;}
+</style>
+<style>
+.promo-products-cell{display:flex;gap:5px;align-items:center;flex-wrap:wrap;min-width:0}.promo-product-pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#eef2ff;color:#233a91;font-size:10.5px;font-weight:700;white-space:nowrap}.promo-product-pill.all{background:#f2f4f7;color:#475467}.promo-product-more{font-size:11px;font-weight:700;color:#667085}.promo-product-picker{border:1px solid var(--zo-line-input);border-radius:10px;padding:8px}.promo-product-choice{display:flex!important;align-items:flex-start;gap:9px;padding:9px 10px;margin:0!important;border-radius:8px;cursor:pointer}.promo-product-choice:hover{background:var(--zo-soft)}.promo-product-choice input{width:auto!important;margin-top:2px}.promo-product-choice span{display:flex;flex-direction:column;gap:2px}.promo-product-choice strong{font-size:12.5px;color:var(--zo-heading)}.promo-product-choice small{font-size:11px;color:var(--zo-muted);font-weight:400}.promo-product-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 8px;padding:10px;border-top:1px solid var(--zo-line);margin-top:4px}.promo-product-options label{display:flex!important;align-items:center;gap:7px;margin:0!important;padding:7px 8px;border-radius:7px;font-size:12px;font-weight:600}.promo-product-options label:hover{background:var(--zo-soft)}.promo-product-options input{width:auto!important}
+</style>
+
+<style id="promo-no-scroll-fix">
+/* Promo modal: fit the complete form in the viewport without internal scrolling */
+#promoModalOverlay{overflow:hidden!important;padding:12px!important;}
+#promoModalOverlay .promo-modal-card{width:min(760px,calc(100vw - 24px))!important;max-width:760px!important;max-height:none!important;overflow:visible!important;}
+#promoModalOverlay .modal-header{padding:14px 18px 10px!important;}
+#promoModalOverlay .promo-modal-title{font-size:19px!important;}
+#promoModalOverlay .promo-modal-sub{font-size:11.5px!important;margin-top:2px!important;}
+#promoModalOverlay .modal-body{padding:12px 18px!important;overflow:visible!important;}
+#promoModalOverlay .promo-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px 12px!important;}
+#promoModalOverlay .promo-field label{font-size:11px!important;margin-bottom:4px!important;}
+#promoModalOverlay .promo-field input,#promoModalOverlay .promo-field select{height:34px!important;padding:6px 9px!important;font-size:12px!important;}
+#promoModalOverlay .promo-field textarea{height:42px!important;min-height:42px!important;padding:7px 9px!important;font-size:12px!important;}
+#promoModalOverlay .promo-product-picker{padding:5px!important;}
+#promoModalOverlay .promo-product-choice{padding:5px 7px!important;gap:7px!important;}
+#promoModalOverlay .promo-product-choice strong{font-size:11.5px!important;}
+#promoModalOverlay .promo-product-choice small{font-size:10px!important;}
+#promoModalOverlay .promo-product-options{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:3px 5px!important;padding:6px!important;}
+#promoModalOverlay .promo-product-options label{padding:4px 5px!important;font-size:10.5px!important;}
+#promoModalOverlay .modal-footer{padding:10px 18px!important;}
+#promoModalOverlay .btn-cancel,#promoModalOverlay .btn-save{padding:7px 14px!important;font-size:12px!important;}
+@media(max-height:760px){#promoModalOverlay .promo-modal-card{zoom:.88;}}
+@media(max-height:680px){#promoModalOverlay .promo-modal-card{zoom:.78;}}
+</style>
 </head>
 <body>
 
@@ -1079,7 +1174,6 @@
   <div class="nav-item" id="navDashboard" onclick="showView('dashboard')"><svg class="ti ti-layout-grid" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span>Dashboard</span></div>
     <div class="nav-item" id="navMarketplace" onclick="showView('marketplace')"><span class="nav-icon">⌂</span><span>Marketplace</span></div>
 <div class="nav-section-label">MANAGE</div>
-  <div class="nav-item" id="navAssigned" onclick="showView('assigned')"><svg class="ti ti-clipboard-list" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1z"/><rect x="4" y="4" width="16" height="18" rx="2"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg><span>Assigned Apps</span><span class="badge">4</span></div>
 <div class="nav-item" id="navMeetings" onclick="showView('meetings')"><span class="nav-icon">▣</span><span>Meetings</span></div>
 <div class="nav-item" id="navInvoices" onclick="showView('invoices')"><svg class="ti ti-file-invoice" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Client Billing</span></div>
   <div class="nav-item"><svg class="ti ti-headset" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg><span>Support</span></div>
@@ -1091,7 +1185,7 @@
   <div class="nav-item"><svg class="ti ti-trending-up" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span>Marketing</span></div>
 
   <div class="nav-section-label">SYSTEM</div>
-  <div class="nav-item"><svg class="ti ti-history" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Audit Trail</span></div>
+  <div class="nav-item" id="navAudit" onclick="showView('audit')"><svg class="ti ti-history" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Audit Trail</span></div>
 </div>
 
 <div class="main">
@@ -1162,7 +1256,7 @@
             <div class="panel-icon"><svg class="ti ti-calendar-event" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="1.5"/></svg></div>
             <div class="panel-title">Upcoming Meetings</div>
           </div>
-          <button class="view-all-btn">View all</button>
+          <button class="view-all-btn" onclick="showView('meetings')">View all</button>
         </div>
 
         <div class="meeting-item">
@@ -1353,79 +1447,6 @@
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
           <div class="deal-date">7/24/2026</div>
           <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Provitrac','Client','client@zenatech.com','Unassigned','7/24/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="content" id="assignedView" style="display:none;">
-    <div class="search-filter-bar">
-      <div class="sf-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search apps...</div>
-      <div class="sf-dropdown">All Status <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-      <div class="sf-dropdown">All Priority <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-      <div class="sf-dropdown sf-select-wrap">
-        <select class="sf-select">
-          <option>Sort by: Assigned Since (Newest)</option>
-          <option>Sort by: Assigned Since (Oldest)</option>
-          <option>Sort by: Priority (Highest)</option>
-          <option>Sort by: Name (A–Z)</option>
-        </select>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </div>
-
-    <div class="setup-page-card">
-      <div class="assigned-table">
-        <div class="assigned-row assigned-head">
-          <div>Name</div>
-          <div>Priority</div>
-          <div>Status</div>
-          <div>Pending Demos</div>
-          <div>Assigned Since</div>
-        </div>
-
-        <div class="assigned-row">
-          <div class="assigned-app"><span class="setup-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1z"/><rect x="4" y="4" width="16" height="18" rx="2"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span> Jadian</div>
-          <div><span class="priority-pill">#1</span></div>
-          <div><span class="status-pill" style="background:var(--zo-success-bg);color:var(--zo-success);"><span class="status-dot" style="background:var(--zo-success);"></span> Active</span></div>
-          <div><span class="demo-count">2 pending</span></div>
-          <div class="deal-date">7/24/2026</div>
-        </div>
-        <div class="assigned-row">
-          <div class="assigned-app"><span class="setup-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1z"/><rect x="4" y="4" width="16" height="18" rx="2"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span> Provitrac</div>
-          <div><span class="priority-pill">#1</span></div>
-          <div><span class="status-pill" style="background:var(--zo-success-bg);color:var(--zo-success);"><span class="status-dot" style="background:var(--zo-success);"></span> Active</span></div>
-          <div class="not-set">—</div>
-          <div class="deal-date">8/4/2026</div>
-        </div>
-
-        <div class="assigned-row">
-          <div class="assigned-app"><span class="setup-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1z"/><rect x="4" y="4" width="16" height="18" rx="2"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span> PsPortals</div>
-          <div><span class="priority-pill">#1</span></div>
-          <div><span class="status-pill" style="background:var(--zo-success-bg);color:var(--zo-success);"><span class="status-dot" style="background:var(--zo-success);"></span> Active</span></div>
-          <div class="not-set">—</div>
-          <div class="deal-date">7/24/2026</div>
-        </div>
-
-        <div class="assigned-row">
-          <div class="assigned-app"><span class="setup-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v1H8V3a1 1 0 0 1 1-1z"/><rect x="4" y="4" width="16" height="18" rx="2"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span> Pace+</div>
-          <div><span class="priority-pill">#2</span></div>
-          <div><span class="status-pill" style="background:var(--zo-success-bg);color:var(--zo-success);"><span class="status-dot" style="background:var(--zo-success);"></span> Active</span></div>
-          <div class="not-set">—</div>
-          <div class="deal-date">7/24/2026</div>
-        </div>
-      </div>
-
-      <div class="assigned-footer">
-        <div>1–4 of 4</div>
-        <div style="display:flex; align-items:center; gap:10px;">
-          <div class="dropdown-filter" style="margin-right:6px;">
-            <select><option>10</option><option>25</option><option>50</option></select>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <button class="page-btn" aria-label="Previous page"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <button class="page-num active">1</button>
-          <button class="page-btn" aria-label="Next page"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
       </div>
     </div>
@@ -1642,6 +1663,48 @@
     </div>
   </div>
 
+  <div class="content" id="newInvoiceView" style="display:none;padding:24px 28px 40px;width:100%;max-width:none;">
+    <div style="width:100%;max-width:none;margin:0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <button class="btn-back" onclick="cancelNewInvoice()" style="margin:0;">← Back to Client Billing</button>
+        <button class="btn-cancel" onclick="cancelNewInvoice()">Cancel</button>
+      </div>
+      <div style="margin-bottom:22px;">
+        <div style="font-size:25px;font-weight:800;color:var(--zo-heading);">New Invoice</div>
+        <div style="font-size:13px;color:var(--zo-muted);margin-top:5px;">Create a new invoice for a client</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--zo-line);border-radius:14px;padding:26px 28px 30px;box-shadow:0 1px 2px rgba(16,24,40,.03);width:100%;">
+        <div class="promo-form-grid" style="gap:20px 16px;">
+          <div class="promo-field"><label>Title *</label><input id="newInvoiceTitle" placeholder="Invoice for services rendered" oninput="validateNewInvoice()"></div>
+          <div class="promo-field"><label>Currency</label><select><option>USD</option><option>CAD</option><option>EUR</option></select></div>
+          <div class="promo-field full" style="border-bottom:1px solid var(--zo-line);padding:5px 0 8px;"><label style="color:var(--zo-muted);letter-spacing:.08em;font-size:10px;margin:0;">CLIENT</label></div>
+          <div class="promo-field"><label>Client Name *</label><div class="invoice-client-picker" id="invoiceClientPicker"><button type="button" class="invoice-client-trigger placeholder" id="invoiceClientTrigger" onclick="toggleInvoiceClientDropdown(event)"><span id="invoiceClientLabel">Select a client...</span><span>⌄</span></button><div class="invoice-client-menu" id="invoiceClientMenu"><div class="invoice-client-search">⌕ <input id="invoiceClientSearch" autocomplete="off" placeholder="Search or enter a client name..." oninput="renderInvoiceClientOptions()"></div><div class="invoice-client-options" id="invoiceClientOptions"></div></div></div></div>
+          <div class="promo-field"><label>Email *</label><input id="newInvoiceEmail" type="email" placeholder="Select a client or enter email" oninput="validateNewInvoice()"></div>
+          <div class="promo-field"><label>Company</label><input></div><div class="promo-field"><label>Address</label><input></div>
+          <div class="promo-field"><label>Issue Date</label><input type="date" value="2026-08-10"></div>
+          <div class="promo-field"><label>Due Date *</label><input id="newInvoiceDueDate" type="date" value="2026-09-09" onchange="validateNewInvoice()"></div>
+          <div class="promo-field full" style="border-bottom:1px solid var(--zo-line);padding:5px 0 8px;display:flex;justify-content:space-between;align-items:center;"><label style="color:var(--zo-muted);letter-spacing:.08em;font-size:10px;margin:0;">LINE ITEMS</label><button type="button" class="btn-back" style="margin:0;" onclick="addInvoiceLine()">+ Add line</button></div>
+          <div class="promo-field full" id="invoiceLineItems"><div class="invoice-line-row"><div><label>Description *</label><input class="invoice-line-desc" placeholder="Description" oninput="validateNewInvoice()"></div><div><label>Qty *</label><input class="invoice-line-qty" type="number" min="1" value="1" oninput="validateNewInvoice()"></div><div><label>Unit Price *</label><input class="invoice-line-price" type="number" min="0" step="0.01" value="0.00" oninput="validateNewInvoice()"></div><button class="invoice-delete-btn" type="button" aria-label="Delete line item" onclick="deleteInvoiceLine(this)" disabled>×</button></div></div>
+          <div class="promo-field"><label>Tax Rate (%)</label><input type="number" value="0"></div>
+          <div class="promo-field"><label>Discount</label><div style="display:grid;grid-template-columns:130px 1fr;gap:8px;"><select><option>Fixed</option><option>Percent</option></select><input type="number" value="0"></div></div>
+          <div class="promo-field full invoice-bottom-row">
+            <div><label>Notes</label><textarea placeholder="Payment terms, bank details, etc."></textarea></div>
+            <div style="background:#f4f8ff;border:1px solid #cbd8ef;border-radius:10px;padding:18px 20px;width:100%;">
+              <div style="display:flex;justify-content:space-between;color:var(--zo-muted);font-size:12px;"><span>Subtotal</span><strong style="color:var(--zo-heading);">$0.00</strong></div>
+              <div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid #d9e2f2;font-size:17px;font-weight:800;"><span>Total</span><span>$0.00</span></div>
+            </div>
+          </div>
+          <div class="promo-field full" style="display:flex;justify-content:flex-end;padding-top:16px;border-top:1px solid var(--zo-line);"><button class="btn-save" id="createInvoiceBtn" type="button" onclick="createNewInvoice()" disabled>Create Invoice</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content audit-page" id="auditView" style="display:none;">
+    <div class="audit-toolbar"><div class="audit-search">⌕ <input id="auditSearch" placeholder="Search events..." oninput="auditPage=1;renderAudit()"></div><select class="audit-filter" id="auditAction" onchange="auditPage=1;renderAudit()"><option value="">All actions</option><option>Login</option><option>Logout</option><option>Invoice Created</option><option>Client Added</option><option>Meeting Booked</option><option>Promo Code Created</option></select><div class="audit-range"><button onclick="setAuditRange('today',this)">Today</button><button class="active" onclick="setAuditRange('all',this)">All time</button></div></div>
+    <div class="audit-card"><div class="audit-row audit-head"><div>Time</div><div>User</div><div>Action</div><div>Details</div><div>Date</div></div><div id="auditRows"></div><div class="audit-footer"><span id="auditFooterCount"></span><div class="audit-pagination" id="auditPagination"></div></div></div>
+  </div>
+
   <div class="content" id="promoView" style="padding-top:4px;">
     <div class="kpi-row">
       <div class="kpi-card">
@@ -1670,7 +1733,7 @@
     </div>
 
     <div class="promo-table-card">
-      <div class="promo-row promo-head"><div>Code</div><div>Discount</div><div>Uses</div><div>Expires</div><div>Status</div><div>Actions</div></div>
+      <div class="promo-row promo-head"><div>Code</div><div>Discount</div><div>Products</div><div>Uses</div><div>Expires</div><div>Status</div><div>Actions</div></div>
       <div id="promoTableBody">
         <div class="promo-row">
           <div><div class="promo-code">5OFF <button class="promo-copy" title="Copy code" onclick="copyPromoCode(0)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div><div class="promo-code-sub">5% off flash sale</div></div>
@@ -1699,6 +1762,22 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay" id="manualClientModalOverlay" onclick="if(event.target===this) closeManualClientModal()">
+  <div class="modal-card" style="max-width:480px;">
+    <div class="modal-header">
+      <div><div class="modal-title">Enter Client Manually</div><div class="promo-modal-sub">Add the client details for this invoice.</div></div>
+      <button class="modal-close" type="button" onclick="closeManualClientModal()" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="promo-field"><label>Client Name *</label><input id="manualClientModalName" placeholder="Enter client name"></div>
+      <div class="promo-field" style="margin-bottom:0;"><label>Email *</label><input id="manualClientModalEmail" type="email" placeholder="client@example.com"></div>
+      <div id="manualClientModalError" style="font-size:12px;color:var(--zo-danger);margin-top:10px;"></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" type="button" onclick="closeManualClientModal()">Cancel</button><button class="btn-save" type="button" onclick="saveManualClientModal()">Use Client</button></div>
   </div>
 </div>
 
@@ -1947,6 +2026,7 @@
         <div class="promo-field"><label>Min. Purchase ($) <span>(optional)</span></label><input id="promoMinPurchaseInput" type="number" min="0" step="0.01" placeholder="0.00"></div>
         <div class="promo-field"><label>Valid From</label><input id="promoValidFromInput" type="date"></div>
         <div class="promo-field"><label>Expires At</label><input id="promoExpiresInput" type="date"></div>
+        <div class="promo-field full"><label>Products *</label><div class="promo-product-picker"><label class="promo-product-choice"><input type="radio" name="promoProductScope" value="all" checked onchange="togglePromoProductSelection()"> <span><strong>All products</strong><small>Code can be used with any product</small></span></label><label class="promo-product-choice"><input type="radio" name="promoProductScope" value="specific" onchange="togglePromoProductSelection()"> <span><strong>Specific products</strong><small>Choose which products accept this code</small></span></label><div id="promoProductOptions" class="promo-product-options" style="display:none;"><label><input type="checkbox" value="K9SKY"> K9SKY</label><label><input type="checkbox" value="Othership"> Othership</label><label><input type="checkbox" value="Pace+"> Pace+</label><label><input type="checkbox" value="Provitrac"> Provitrac</label><label><input type="checkbox" value="PsPortals"> PsPortals</label><label><input type="checkbox" value="TSentra"> TSentra</label><label><input type="checkbox" value="WorkAware"> WorkAware</label><label><input type="checkbox" value="Zinergy"> Zinergy</label></div></div></div>
         <div class="promo-field full"><label>Notes <span>(optional)</span></label><textarea id="promoNotesInput" placeholder="Internal notes (optional)"></textarea></div>
       </div>
     </div>
@@ -2014,10 +2094,10 @@
   var promoEditingIndex = null;
   var promoDeletingIndex = null;
   var promoCodesData = [
-    { code:'5OFF', name:'5% off flash sale', type:'Percentage', discount:5, uses:6, maxUses:null, minPurchase:0, validFrom:'2026-08-01', expires:'2026-08-10', notes:'' },
-    { code:'DFT12TY', name:'$5 Discount', type:'Fixed', discount:5, uses:4, maxUses:4, minPurchase:0, validFrom:'2026-07-01', expires:'2026-07-27', notes:'' },
-    { code:'SAVE10', name:'Save 10%', type:'Percentage', discount:10, uses:8, maxUses:12, minPurchase:0, validFrom:'2026-07-01', expires:'2026-07-28', notes:'' },
-    { code:'FALL25', name:'Fall launch offer', type:'Percentage', discount:25, uses:0, maxUses:50, minPurchase:0, validFrom:'2026-09-01', expires:'2026-09-30', notes:'Fall launch campaign' }
+    { code:'5OFF', name:'5% off flash sale', type:'Percentage', discount:5, uses:6, maxUses:null, minPurchase:0, validFrom:'2026-08-01', expires:'2026-08-10', notes:'', products:['All products'] },
+    { code:'DFT12TY', name:'$5 Discount', type:'Fixed', discount:5, uses:4, maxUses:4, minPurchase:0, validFrom:'2026-07-01', expires:'2026-07-27', notes:'', products:['Pace+','Provitrac'] },
+    { code:'SAVE10', name:'Save 10%', type:'Percentage', discount:10, uses:8, maxUses:12, minPurchase:0, validFrom:'2026-07-01', expires:'2026-07-28', notes:'', products:['All products'] },
+    { code:'FALL25', name:'Fall launch offer', type:'Percentage', discount:25, uses:0, maxUses:50, minPurchase:0, validFrom:'2026-09-01', expires:'2026-09-30', notes:'Fall launch campaign', products:['K9SKY','WorkAware','Zinergy'] }
   ];
 
   function promoStatus(p){
@@ -2049,6 +2129,7 @@
       return '<div class="promo-row">'+
         '<div><div class="promo-code">'+p.code+' <button class="promo-copy" title="Copy code" onclick="copyPromoCode('+i+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div><div class="promo-code-sub">'+(p.name||'—')+'</div></div>'+
         '<div style="font-weight:700;color:var(--zo-heading);">'+discount+'</div>'+
+        '<div class="promo-products-cell">'+promoProductsHtml(p.products)+'</div>'+
         '<div class="promo-uses"><div class="promo-progress"><span style="width:'+pct+'%"></span></div><span class="promo-use-text">'+p.uses+'/'+maxText+'</span></div>'+
         '<div style="color:var(--zo-muted);">'+promoDate(p.expires)+'</div>'+
         '<div>'+promoStatusHtml(status)+'</div>'+
@@ -2068,6 +2149,29 @@
     document.querySelectorAll('.promo-tab').forEach(function(b){ b.classList.toggle('active',b.getAttribute('data-promo-tab')===tab); });
     renderPromoCodes();
   }
+  function togglePromoProductSelection(){
+    var specific=document.querySelector('input[name="promoProductScope"]:checked').value==='specific';
+    document.getElementById('promoProductOptions').style.display=specific?'grid':'none';
+  }
+  function getPromoProducts(){
+    var scope=document.querySelector('input[name="promoProductScope"]:checked').value;
+    if(scope==='all') return ['All products'];
+    return Array.from(document.querySelectorAll('#promoProductOptions input:checked')).map(function(x){return x.value;});
+  }
+  function setPromoProducts(products){
+    products=products&&products.length?products:['All products'];
+    var all=products.indexOf('All products')>=0;
+    document.querySelector('input[name="promoProductScope"][value="'+(all?'all':'specific')+'"]').checked=true;
+    document.querySelectorAll('#promoProductOptions input').forEach(function(x){x.checked=!all&&products.indexOf(x.value)>=0;});
+    togglePromoProductSelection();
+  }
+  function promoProductsHtml(products){
+    products=products&&products.length?products:['All products'];
+    if(products.indexOf('All products')>=0) return '<span class="promo-product-pill all">All products</span>';
+    var first=products.slice(0,2).map(function(x){return '<span class="promo-product-pill">'+x+'</span>';}).join('');
+    return first+(products.length>2?'<span class="promo-product-more">+'+(products.length-2)+'</span>':'');
+  }
+
   function updatePromoDiscountLabel(){
     document.getElementById('promoDiscountLabel').textContent = document.getElementById('promoTypeInput').value === 'Fixed' ? 'Discount ($) *' : 'Discount (%) *';
   }
@@ -2086,6 +2190,7 @@
     document.getElementById('promoValidFromInput').value = p ? p.validFrom : '';
     document.getElementById('promoExpiresInput').value = p ? p.expires : '';
     document.getElementById('promoNotesInput').value = p ? p.notes : '';
+    setPromoProducts(p && p.products ? p.products : ['All products']);
     updatePromoDiscountLabel();
     document.getElementById('promoModalOverlay').style.display='flex';
   }
@@ -2100,6 +2205,7 @@
     var validFromValue = document.getElementById('promoValidFromInput').value;
     if(validFromValue && expiresValue && new Date(expiresValue) < new Date(validFromValue)){ showPromoToast('Expiry must be after the start date'); return; }
     if(document.getElementById('promoTypeInput').value === 'Percentage' && discount > 100){ showPromoToast('Percentage cannot exceed 100%'); return; }
+    if(document.querySelector('input[name="promoProductScope"]:checked').value==='specific' && getPromoProducts().length===0){ showPromoToast('Select at least one product'); return; }
     var item={
       code:code, name:document.getElementById('promoNameInput').value.trim(),
       type:document.getElementById('promoTypeInput').value, discount:discount,
@@ -2108,6 +2214,7 @@
       minPurchase:parseFloat(document.getElementById('promoMinPurchaseInput').value)||0,
       validFrom:document.getElementById('promoValidFromInput').value,
       expires:document.getElementById('promoExpiresInput').value,
+      products:getPromoProducts(),
       notes:document.getElementById('promoNotesInput').value.trim()
     };
     if(promoEditingIndex!==null) promoCodesData[promoEditingIndex]=item; else promoCodesData.unshift(item);
@@ -2155,13 +2262,12 @@
   }
 
   function showView(view){
-    var views = { dashboard:'dashboardView', setup:'setupView', assigned:'assignedView', invoices:'invoicesView', promo:'promoView', marketplace:'marketplaceView', meetings:'meetingsView' };
+    var views = { dashboard:'dashboardView', setup:'setupView', invoices:'invoicesView', promo:'promoView', audit:'auditView', newinvoice:'newInvoiceView', marketplace:'marketplaceView', meetings:'meetingsView' };
     var titles = {
       dashboard: ['Dashboard', 'Monitor your apps, meetings, invoices, and account activity.'],
       setup: ['App Setup Requests', '4 apps are waiting on your configuration.'],
-      assigned: ['Assigned Apps', '4 active · 4 total'],
       invoices: ['Client Billing', 'Manage client billing, installations, and subscriptions in one place.'],
-      promo: ['Promo Codes', 'Create discount codes, manage availability, and track how often they are used.'], marketplace:['Marketplace','Discover apps and manage subscriptions.'], meetings:['Meetings','Manage demos, invitations, and meeting history.']
+      promo: ['Promo Codes', 'Create discount codes, manage availability, and track how often they are used.'], audit: ['Audit Trail', 'Review user activity and events across Zoo Office.'], newinvoice:['New Invoice','Create a new invoice for a client.'], marketplace:['Marketplace','Discover apps and manage subscriptions.'], meetings:['Meetings','Manage demos, invitations, and meeting history.']
     };
     Object.keys(views).forEach(function(key){
       var el = document.getElementById(views[key]);
@@ -2179,12 +2285,13 @@
     document.getElementById('pageSub').textContent = titles[view][1];
     document.getElementById('navDashboard').classList.toggle('active', view === 'dashboard');
     document.getElementById('navSetup').classList.toggle('active', view === 'setup');
-    document.getElementById('navAssigned').classList.toggle('active', view === 'assigned');
     document.getElementById('navInvoices').classList.toggle('active', view === 'invoices');
     document.getElementById('navPromo').classList.toggle('active', view === 'promo');
+    document.getElementById('navAudit')?.classList.toggle('active', view === 'audit');
     document.getElementById('navMarketplace')?.classList.toggle('active', view === 'marketplace');
     document.getElementById('navMeetings')?.classList.toggle('active', view === 'meetings');
     if (view === 'promo') { renderPromoCodes(); }
+    if (view === 'audit' && typeof renderAudit === 'function') { renderAudit(); }
     if (view === 'invoices') { backToClientList(); }
   }
 
@@ -2444,6 +2551,8 @@
 
     document.getElementById('clientListSection').style.display = 'none';
     document.getElementById('clientDetailSection').style.display = '';
+    var billingKpis = document.getElementById('billingKpiRow');
+    if (billingKpis) billingKpis.style.display = 'none';
 
     document.getElementById('detailAvatar').textContent = c.initial;
     document.getElementById('detailName').textContent = c.name;
@@ -2644,8 +2753,200 @@
       : '—';
   }
 
+  function updateInvoiceLineDeleteButtons(){
+    var rows=document.querySelectorAll('#invoiceLineItems .invoice-line-row');
+    rows.forEach(function(row){
+      var btn=row.querySelector('.invoice-delete-btn');
+      if(btn) btn.disabled=rows.length<=1;
+    });
+  }
+
+  function addInvoiceLine(){
+    var wrap=document.getElementById('invoiceLineItems');
+    if(!wrap) return;
+    var row=document.createElement('div');
+    row.className='invoice-line-row';
+    row.innerHTML='<div><label>Description *</label><input class="invoice-line-desc" placeholder="Description" oninput="validateNewInvoice()"></div><div><label>Qty *</label><input class="invoice-line-qty" type="number" min="1" value="1" oninput="validateNewInvoice()"></div><div><label>Unit Price *</label><input class="invoice-line-price" type="number" min="0" step="0.01" value="0.00" oninput="validateNewInvoice()"></div><button class="invoice-delete-btn" type="button" aria-label="Delete line item" onclick="deleteInvoiceLine(this)">×</button>';
+    validateNewInvoice();
+    wrap.appendChild(row);
+    updateInvoiceLineDeleteButtons();
+  }
+
+  function deleteInvoiceLine(btn){
+    var rows=document.querySelectorAll('#invoiceLineItems .invoice-line-row');
+    if(rows.length<=1) return;
+    var row=btn.closest('.invoice-line-row');
+    if(row) row.remove();
+    updateInvoiceLineDeleteButtons();
+    validateNewInvoice();
+  }
+
+  var newInvoiceSelectedClientId = null;
+  var newInvoiceManualClient = false;
+
+  function renderInvoiceClientOptions(){
+    var target=document.getElementById('invoiceClientOptions');
+    if(!target) return;
+    var search=(document.getElementById('invoiceClientSearch').value||'').trim().toLowerCase();
+    var list=clientsData.filter(function(c){ return !search || (c.name+' '+c.email).toLowerCase().indexOf(search)>-1; });
+    var existing=list.map(function(c){
+      return '<div class="invoice-client-option" onclick="selectInvoiceClient(\''+c.id+'\')"><span class="invoice-client-option-avatar">'+c.initial+'</span><div><strong>'+c.name+'</strong><small>'+c.email+'</small></div></div>';
+    }).join('');
+    var typed=document.getElementById('invoiceClientSearch').value.trim();
+    var addNew=search ? '<div class="invoice-client-option new-client" onclick="useNewInvoiceClient()"><span class="invoice-client-option-avatar">+</span><div><strong>Use “'+typed+'”</strong><small>New client — enter email after selecting</small></div></div>' : '';
+    var manual='<div class="invoice-client-option new-client" onclick="event.stopPropagation();manualInvoiceClientEntry();return false;"><span class="invoice-client-option-avatar">✎</span><div><strong>Enter client manually</strong><small>Input a client name and email</small></div></div>';
+    target.innerHTML=(existing||(!search?'<div class="invoice-client-empty">No clients found.</div>':''))+addNew+manual;
+  }
+
+  function toggleInvoiceClientDropdown(e){
+    if(e) e.stopPropagation();
+    var menu=document.getElementById('invoiceClientMenu');
+    var opening=!menu.classList.contains('open');
+    menu.classList.toggle('open',opening);
+    if(opening){
+      document.getElementById('invoiceClientSearch').value='';
+      renderInvoiceClientOptions();
+      setTimeout(function(){document.getElementById('invoiceClientSearch').focus();},0);
+    }
+  }
+
+  function selectInvoiceClient(id){
+    var c=clientsData.find(function(x){return x.id===id;});
+    if(!c) return;
+    document.getElementById('invoiceClientLabel').textContent=c.name;
+    document.getElementById('invoiceClientTrigger').classList.remove('placeholder');
+    document.getElementById('newInvoiceEmail').value=c.email;
+    newInvoiceSelectedClientId=c.id; newInvoiceManualClient=false;
+    document.getElementById('invoiceClientMenu').classList.remove('open');
+    validateNewInvoice();
+  }
+
+  function manualInvoiceClientEntry(){
+    var menu=document.getElementById('invoiceClientMenu');
+    if(menu) menu.classList.remove('open');
+    var name=document.getElementById('manualClientModalName');
+    var email=document.getElementById('manualClientModalEmail');
+    if(name) name.value='';
+    if(email) email.value='';
+    document.getElementById('manualClientModalOverlay').style.display='flex';
+    setTimeout(function(){if(name)name.focus();},0);
+  }
+  function closeManualClientModal(){document.getElementById('manualClientModalOverlay').style.display='none';}
+  function saveManualClientModal(){
+    var name=(document.getElementById('manualClientModalName').value||'').trim();
+    var emailValue=(document.getElementById('manualClientModalEmail').value||'').trim();
+    if(!name||!emailValue){document.getElementById('manualClientModalError').textContent='Enter both a client name and email.';return;}
+    document.getElementById('manualClientModalError').textContent='';
+    document.getElementById('invoiceClientLabel').textContent=name;
+    document.getElementById('invoiceClientTrigger').classList.remove('placeholder');
+    var email=document.getElementById('newInvoiceEmail');
+    email.value=emailValue;
+    email.removeAttribute('readonly');
+    newInvoiceSelectedClientId=null; newInvoiceManualClient=true;
+    closeManualClientModal();
+    validateNewInvoice();
+  }
+
+  function backToInvoiceClientList(){
+    var searchBox=document.querySelector('#invoiceClientMenu .invoice-client-search');
+    if(searchBox) searchBox.style.display='flex';
+    var search=document.getElementById('invoiceClientSearch');
+    if(search) search.value='';
+    renderInvoiceClientOptions();
+    if(search) setTimeout(function(){search.focus();},0);
+  }
+
+  function saveManualInvoiceClient(){
+    var name=(document.getElementById('invoiceManualClientName').value||'').trim();
+    var emailValue=(document.getElementById('invoiceManualClientEmail').value||'').trim();
+    if(!name||!emailValue){return;}
+    document.getElementById('invoiceClientLabel').textContent=name;
+    document.getElementById('invoiceClientTrigger').classList.remove('placeholder');
+    var email=document.getElementById('newInvoiceEmail');
+    email.value=emailValue;
+    email.removeAttribute('readonly');
+    email.placeholder='Enter email';
+    document.getElementById('invoiceClientMenu').classList.remove('open');
+    var searchBox=document.querySelector('#invoiceClientMenu .invoice-client-search');
+    if(searchBox) searchBox.style.display='flex';
+  }
+
+  function useNewInvoiceClient(){
+    var name=(document.getElementById('invoiceClientSearch').value||'').trim();
+    if(!name) return;
+    document.getElementById('invoiceClientLabel').textContent=name;
+    document.getElementById('invoiceClientTrigger').classList.remove('placeholder');
+    var email=document.getElementById('newInvoiceEmail');
+    email.value='';
+    email.removeAttribute('readonly');
+    email.placeholder='Enter '+name+' email';
+    document.getElementById('invoiceClientMenu').classList.remove('open');
+    setTimeout(function(){email.focus();},0);
+  }
+
+  document.addEventListener('click',function(e){
+    var picker=document.getElementById('invoiceClientPicker');
+    if(picker && !picker.contains(e.target)){
+      var menu=document.getElementById('invoiceClientMenu');
+      if(menu) menu.classList.remove('open');
+    }
+  });
+
+
+  function validateNewInvoice(){
+    var btn=document.getElementById('createInvoiceBtn'); if(!btn)return;
+    var title=(document.getElementById('newInvoiceTitle')||{}).value||'';
+    var email=(document.getElementById('newInvoiceEmail')||{}).value||'';
+    var due=(document.getElementById('newInvoiceDueDate')||{}).value||'';
+    var client=(document.getElementById('invoiceClientLabel')||{}).textContent||'';
+    var rows=Array.from(document.querySelectorAll('#invoiceLineItems .invoice-line-row'));
+    var linesOK=rows.length>0 && rows.every(function(r){var d=r.querySelector('.invoice-line-desc'),q=r.querySelector('.invoice-line-qty'),pr=r.querySelector('.invoice-line-price');return d&&d.value.trim()&&q&&Number(q.value)>0&&pr&&Number(pr.value)>=0;});
+    var emailOK=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    btn.disabled=!(title.trim() && client && client!=='Select a client...' && emailOK && due && linesOK);
+  }
+
+  function createNewInvoice(){
+    validateNewInvoice(); var btn=document.getElementById('createInvoiceBtn'); if(!btn||btn.disabled)return;
+    var name=document.getElementById('invoiceClientLabel').textContent.trim();
+    var email=document.getElementById('newInvoiceEmail').value.trim();
+    var c=newInvoiceSelectedClientId?clientsData.find(function(x){return x.id===newInvoiceSelectedClientId;}):null;
+    if(!c){
+      var base=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'client'; var id=base, n=2;
+      while(clientsData.some(function(x){return x.id===id;})){id=base+'-'+n++;}
+      c={id:id,name:name,email:email,initial:(name.charAt(0)||'C').toUpperCase(),invoices:[],installations:[],subscriptions:[]}; clientsData.push(c);
+    }
+    var rows=Array.from(document.querySelectorAll('#invoiceLineItems .invoice-line-row')); var total=0;
+    var desc=rows.map(function(r){var d=r.querySelector('.invoice-line-desc').value.trim(),q=Number(r.querySelector('.invoice-line-qty').value),pr=Number(r.querySelector('.invoice-line-price').value); total+=q*pr; return d;}).join('; ');
+    var max=0; clientsData.forEach(function(cl){cl.invoices.forEach(function(i){var m=(i.inv||'').match(/(\d+)$/);if(m)max=Math.max(max,Number(m[1]));});});
+    var inv='INV-2026-'+String(max+1).padStart(4,'0');
+    c.invoices.unshift({inv:inv,date:'Aug 10, 2026',app:'Custom',desc:desc,amount:'$'+total.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}),status:'Outstanding'});
+    document.querySelector('.main').classList.remove('invoice-mode'); var head=document.querySelector('.main > .page-header-row'); if(head)head.style.display='flex';
+    showView('invoices'); showClientDetail(c.id); switchBillingTab('invoices');
+    if(typeof showPromoToast==='function')showPromoToast('Invoice '+inv+' created');
+  }
   function openNewInvoice(){
-    alert('This would open a form to create a new invoice.');
+    newInvoiceSelectedClientId=null; newInvoiceManualClient=false;
+    var label=document.getElementById('invoiceClientLabel'); if(label)label.textContent='Select a client...';
+    var trig=document.getElementById('invoiceClientTrigger'); if(trig)trig.classList.add('placeholder');
+    var email=document.getElementById('newInvoiceEmail'); if(email)email.value='';
+    var title=document.getElementById('newInvoiceTitle'); if(title)title.value='';
+    showView('newinvoice');
+    renderInvoiceClientOptions();
+    var top=document.querySelector('.main > .topbar');
+    var head=document.querySelector('.main > .page-header-row');
+    document.querySelector('.main').classList.add('invoice-mode');
+    if(top) top.style.display='flex';
+    if(head) head.style.display='none';
+    validateNewInvoice();
+  }
+
+  function cancelNewInvoice(){
+    var top=document.querySelector('.main > .topbar');
+    var head=document.querySelector('.main > .page-header-row');
+    document.querySelector('.main').classList.remove('invoice-mode');
+    if(top) top.style.display='flex';
+    if(head) head.style.display='flex';
+    showView('invoices');
   }
 
   function viewInvoice(invNum){
@@ -2659,6 +2960,8 @@
   function backToClientList(){
     document.getElementById('clientDetailSection').style.display = 'none';
     document.getElementById('clientListSection').style.display = '';
+    var billingKpis = document.getElementById('billingKpiRow');
+    if (billingKpis) billingKpis.style.display = '';
     renderClientList();
   }
 
@@ -2804,7 +3107,7 @@ window.addEventListener('load', function(){
 <script>
 (function(){
   function forceDashboardLanding(){
-    var ids=['setupView','assignedView','invoicesView','promoView','marketplaceView','meetingsView'];
+    var ids=['setupView','invoicesView','promoView','marketplaceView','meetingsView'];
     for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)el.style.display='none';}
     var d=document.getElementById('dashboardView');
     if(d){d.style.display='';d.removeAttribute('hidden');}
@@ -2822,6 +3125,43 @@ window.addEventListener('load', function(){
 })();
 </script>
 
+
+<script>
+var auditRange='all';
+var auditPage=1, auditPageSize=10;
+var auditEvents=[
+ {time:'11:13:13 AM',user:'sale@zenatech.com',action:'Login',detail:'Signed in to Zoo Office',date:'Aug 10'},
+ {time:'11:07:24 AM',user:'sale@zenatech.com',action:'Invoice Created',detail:'Created INV-2026-0011 for Client',date:'Aug 10'},
+ {time:'10:58:42 AM',user:'sale@zenatech.com',action:'Client Added',detail:'Added Acme Corp to Client Billing',date:'Aug 10'},
+ {time:'10:52:16 AM',user:'sale@zenatech.com',action:'Meeting Booked',detail:'Booked Product Demo',date:'Aug 10'},
+ {time:'10:40:15 AM',user:'sale@zenatech.com',action:'Promo Code Created',detail:'Created promo code 5OFF',date:'Aug 10'},
+ {time:'10:35:37 AM',user:'Sale',action:'Logout',detail:'Signed out of Zoo Office',date:'Aug 10'},
+ {time:'4:14:09 PM',user:'sale@zenatech.com',action:'Invoice Created',detail:'Created invoice for Testing User',date:'Aug 9'},
+ {time:'2:31:55 PM',user:'sale@zenatech.com',action:'Meeting Booked',detail:'Scheduled Analytics Platform Demo',date:'Aug 9'},
+ {time:'1:48:12 PM',user:'sale@zenatech.com',action:'Login',detail:'Signed in to Zoo Office',date:'Aug 9'},
+ {time:'12:22:41 PM',user:'sale@zenatech.com',action:'Invoice Created',detail:'Created invoice for Sale',date:'Aug 9'},
+ {time:'11:05:18 AM',user:'sale@zenatech.com',action:'Client Added',detail:'Added Northstar Labs to Client Billing',date:'Aug 9'},
+ {time:'9:44:03 AM',user:'Sale',action:'Logout',detail:'Signed out of Zoo Office',date:'Aug 9'},
+ {time:'4:52:27 PM',user:'sale@zenatech.com',action:'Promo Code Created',detail:'Created promo code SUMMER15',date:'Aug 8'},
+ {time:'3:36:11 PM',user:'sale@zenatech.com',action:'Invoice Created',detail:'Created invoice for Acme Health',date:'Aug 8'},
+ {time:'1:18:49 PM',user:'sale@zenatech.com',action:'Meeting Booked',detail:'Scheduled CRM Follow-up with Atlas Works',date:'Aug 8'},
+ {time:'9:02:34 AM',user:'sale@zenatech.com',action:'Login',detail:'Signed in to Zoo Office',date:'Aug 8'}
+];
+function auditClass(a){if(a==='Login')return'login';if(a==='Logout')return'logout';if(a.indexOf('Invoice')>=0)return'invoice';if(a.indexOf('Client')>=0)return'client';if(a.indexOf('Meeting')>=0)return'meeting';return''}
+function renderAudit(){
+ var q=(document.getElementById('auditSearch')?.value||'').toLowerCase(),a=document.getElementById('auditAction')?.value||'';
+ var rows=auditEvents.filter(function(x){return(!q||(x.user+' '+x.action+' '+x.detail).toLowerCase().includes(q))&&(!a||x.action===a)&&(auditRange!=='today'||x.date==='Aug 10')});
+ var pages=Math.max(1,Math.ceil(rows.length/auditPageSize)); if(auditPage>pages)auditPage=pages;
+ var first=(auditPage-1)*auditPageSize, visible=rows.slice(first,first+auditPageSize);
+ var el=document.getElementById('auditRows');if(!el)return;
+ el.innerHTML=visible.map(function(x){return'<div class="audit-row"><div><b>'+x.time+'</b></div><div class="audit-user"><span class="audit-avatar">'+x.user.charAt(0).toUpperCase()+'</span>'+x.user+'</div><div><span class="audit-action '+auditClass(x.action)+'">'+x.action+'</span></div><div>'+x.detail+'</div><div>'+x.date+'</div></div>'}).join('')||'<div style="padding:28px;text-align:center;color:#667085">No events match these filters.</div>';
+ var footer=document.getElementById('auditFooterCount'); if(footer) footer.textContent=rows.length ? (first+1)+'–'+Math.min(first+auditPageSize,rows.length)+' of '+rows.length : '0 events';
+ var pg=document.getElementById('auditPagination'); if(pg){var h='<button class="page-btn" '+(auditPage===1?'disabled':'')+' onclick="auditGoPage('+(auditPage-1)+')">‹</button>';for(var i=1;i<=pages;i++)h+='<button class="page-num '+(i===auditPage?'active':'')+'" onclick="auditGoPage('+i+')">'+i+'</button>';h+='<button class="page-btn" '+(auditPage===pages?'disabled':'')+' onclick="auditGoPage('+(auditPage+1)+')">›</button>';pg.innerHTML=h;}
+}
+function auditGoPage(p){var pages=Math.max(1,Math.ceil(auditEvents.length/auditPageSize));auditPage=Math.max(1,Math.min(p,pages));renderAudit()}
+function setAuditRange(r,b){auditRange=r;auditPage=1;document.querySelectorAll('.audit-range button').forEach(function(x){x.classList.remove('active')});b.classList.add('active');renderAudit()}
+document.addEventListener('DOMContentLoaded',renderAudit);
+</script>
 </body>
 </html>
 <style>
