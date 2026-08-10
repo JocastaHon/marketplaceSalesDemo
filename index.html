@@ -3176,3 +3176,13 @@ document.addEventListener('DOMContentLoaded',renderAudit);
   display:block !important;
 }
 </style>
+
+<style>
+/* Configure modal width override */
+#configModalOverlay .modal-card{
+  width:min(760px, calc(100vw - 48px)) !important;
+  max-width:760px !important;
+}
+#configModalOverlay .modal-body{padding:22px 24px !important;}
+#configModalOverlay .modal-header,#configModalOverlay .modal-footer{padding-left:24px !important;padding-right:24px !important;}
+</style>
