@@ -1177,6 +1177,22 @@
   opacity: .55;
 }
 </style>
+
+<style>
+#dateDropdown .dashboard-date-panel{width:235px;min-width:235px;padding:0;display:none;grid-template-columns:235px;overflow:hidden;right:0;left:auto;}
+#dateDropdown.open .dashboard-date-panel{display:grid;}
+#dateDropdown .dashboard-date-panel.custom-active{width:590px;min-width:590px;grid-template-columns:235px 1fr;}
+.dashboard-date-presets{padding:14px 8px;border-right:1px solid var(--zo-line);}
+.dashboard-date-presets .dropdown-option{padding:13px 12px;}
+.dashboard-custom-panel{display:none;padding:26px 24px 24px;}
+.dashboard-custom-panel.show{display:block;}
+.dashboard-custom-title{font-size:16px;font-weight:800;color:var(--zo-heading);margin-bottom:20px;}
+.dashboard-custom-panel label{display:block;font-size:12px;color:var(--zo-slate);margin:0 0 8px;}
+.dashboard-custom-panel input{width:100%;height:42px;border:1px solid var(--zo-line-input);border-radius:9px;padding:0 12px;font-family:var(--zo-font);font-size:13px;margin-bottom:16px;}
+.dashboard-custom-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:0;}
+.dashboard-custom-actions .btn-cancel,.dashboard-custom-actions .btn-save{height:38px;padding:0 16px;}
+@media(max-width:760px){#dateDropdown .dashboard-date-panel{width:min(590px,calc(100vw - 32px));min-width:0;grid-template-columns:1fr}.dashboard-date-presets{border-right:0}.dashboard-custom-panel{border-top:1px solid var(--zo-line)}}
+</style>
 </head>
 <body>
 
@@ -1229,14 +1245,23 @@
     </div>
     <div class="custom-dropdown dd-right" id="dateDropdown" style="display:none;">
       <div class="date-pill" onclick="toggleDropdown('dateDropdown')"><svg class="ti ti-calendar" style="font-size:15px;" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span id="dateDropdownLabel">Today</span> <svg class="ti ti-chevron-down" style="font-size:13px;" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;"><polyline points="6 9 12 15 18 9"/></svg></div>
-      <div class="custom-dropdown-panel">
-        <div class="dropdown-option selected" onclick="selectDateOption(this, 'Today')">Today</div>
-        <div class="dropdown-option" onclick="selectDateOption(this, 'Last 7 Days')">Last 7 Days</div>
-        <div class="dropdown-option" onclick="selectDateOption(this, 'Last 30 Days')">Last 30 Days</div>
-        <div class="dropdown-option" onclick="selectDateOption(this, 'Custom Date Range')">Custom Date Range</div>
-        <div class="dropdown-custom-range" id="dashboardCustomRange">
+      <div class="custom-dropdown-panel dashboard-date-panel">
+        <div class="dashboard-date-presets">
+          <div class="dropdown-option selected" onclick="selectDateOption(this, 'Today')">Today</div>
+          <div class="dropdown-option" onclick="selectDateOption(this, 'Last 7 Days')">Last 7 Days</div>
+          <div class="dropdown-option" onclick="selectDateOption(this, 'Last 30 Days')">Last 30 Days</div>
+          <div class="dropdown-option" onclick="selectDateOption(this, 'Custom Date Range')">Custom Date Range</div>
+        </div>
+        <div class="dashboard-custom-panel" id="dashboardCustomRange">
+          <div class="dashboard-custom-title">Custom Date Range</div>
+          <label>Start Date</label>
           <input type="date" id="dashboardRangeFrom">
+          <label>End Date</label>
           <input type="date" id="dashboardRangeTo">
+          <div class="dashboard-custom-actions">
+            <button type="button" class="btn-cancel" onclick="cancelDashboardDateRange(event)">Cancel</button>
+            <button type="button" class="btn-save" onclick="applyDashboardDateRange(event)">Apply</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1435,7 +1460,7 @@
           <div>Sale</div>
           <div class="not-set">Not set</div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
-          <div class="deal-date">8/4/2026</div>
+          <div class="deal-date">Aug 4, 2026</div>
           <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Jadian','Client','client@zenatech.com','Sale','8/4/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
         </div>
 
@@ -1445,7 +1470,7 @@
           <div>Sale</div>
           <div class="not-set">Not set</div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
-          <div class="deal-date">7/27/2026</div>
+          <div class="deal-date">Jul 27, 2026</div>
           <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Jadian','Sale','sale@zenatech.com','Sale','7/27/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
         </div>
 
@@ -1455,7 +1480,7 @@
           <div>Sale</div>
           <div class="not-set">Not set</div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
-          <div class="deal-date">7/24/2026</div>
+          <div class="deal-date">Jul 24, 2026</div>
           <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Pace+','Testing User','test@yopmail.com','Sale','7/24/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
         </div>
 
@@ -1465,7 +1490,7 @@
           <div style="color:var(--zo-warning);font-weight:600;">Unassigned</div>
           <div class="not-set">Not set</div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
-          <div class="deal-date">7/24/2026</div>
+          <div class="deal-date">Jul 24, 2026</div>
           <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Provitrac','Client','client@zenatech.com','Unassigned','7/24/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
         </div>
       </div>
@@ -2089,10 +2114,34 @@
     var rangeEl = document.getElementById('dashboardCustomRange');
     if (label === 'Custom Date Range') {
       rangeEl.classList.add('show');
+      panel.classList.add('custom-active');
     } else {
       rangeEl.classList.remove('show');
+      panel.classList.remove('custom-active');
       document.getElementById('dateDropdown').classList.remove('open');
     }
+  }
+
+  function cancelDashboardDateRange(e){
+    if(e) e.stopPropagation();
+    document.getElementById('dashboardRangeFrom').value='';
+    document.getElementById('dashboardRangeTo').value='';
+    document.getElementById('dashboardCustomRange').classList.remove('show');
+    var dp=document.querySelector('#dateDropdown .dashboard-date-panel'); if(dp) dp.classList.remove('custom-active');
+    var todayOpt=document.querySelector('#dateDropdown .dashboard-date-presets .dropdown-option');
+    if(todayOpt) selectDateOption(todayOpt,'Today');
+  }
+  function applyDashboardDateRange(e){
+    if(e) e.stopPropagation();
+    var from=document.getElementById('dashboardRangeFrom').value;
+    var to=document.getElementById('dashboardRangeTo').value;
+    if(!from||!to){ alert('Select both a start date and an end date.'); return; }
+    if(new Date(from)>new Date(to)){ alert('Start date must be before end date.'); return; }
+    var fmt=function(v){return new Date(v+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});};
+    document.getElementById('dateDropdownLabel').textContent=fmt(from)+' – '+fmt(to);
+    document.getElementById('dateDropdown').classList.remove('open');
+    var dp=document.querySelector('#dateDropdown .dashboard-date-panel'); if(dp) dp.classList.remove('custom-active');
+    document.getElementById('dashboardCustomRange').classList.remove('show');
   }
 
   function selectSortOption(el, value, label){
@@ -2335,16 +2384,16 @@
         { inv: 'INV-2026-0006', date: 'Aug 3, 2026', app: 'Provitrac', desc: 'Plan Upgrade: Provitrac → Enterprise', amount: '$500.00', status: 'Paid' }
       ],
       installations: [
-        { app: 'TSentra', status: 'Purchased', installed: '8/7/2026, 11:20:40 AM', trialEnds: '—' },
-        { app: 'Zoo Office', status: 'Trial', installed: '8/5/2026, 4:07:37 AM', trialEnds: '9/4/2026, 4:07:37 AM' },
-        { app: 'Jadian', status: 'Purchased', installed: '8/4/2026, 10:38:23 AM', trialEnds: '—' },
-        { app: 'Othership', status: 'Purchased', installed: '8/4/2026, 10:38:10 AM', trialEnds: '—' },
-        { app: 'Provitrac', status: 'Purchased', installed: '8/4/2026, 10:38:02 AM', trialEnds: '—' }
+        { app: 'TSentra', status: 'Purchased', installed: 'Aug 7, 2026', trialEnds: '—' },
+        { app: 'Zoo Office', status: 'Trial', installed: 'Aug 5, 2026', trialEnds: 'Sep 4, 2026' },
+        { app: 'Jadian', status: 'Purchased', installed: 'Aug 4, 2026', trialEnds: '—' },
+        { app: 'Othership', status: 'Purchased', installed: 'Aug 4, 2026', trialEnds: '—' },
+        { app: 'Provitrac', status: 'Purchased', installed: 'Aug 4, 2026', trialEnds: '—' }
       ],
       subscriptions: [
-        { app: 'Jadian', plan: 'Enterprise', cadence: 'Monthly', amount: '$2,999.00', nextBilling: '9/4/2026, 10:38:23 AM', status: 'Active' },
-        { app: 'Othership', plan: 'Business', cadence: 'Monthly', amount: '$199.00', nextBilling: '9/4/2026, 10:38:10 AM', status: 'Active' },
-        { app: 'Provitrac', plan: 'Enterprise', cadence: 'Monthly', amount: '$599.00', nextBilling: '8/24/2026, 9:28:19 AM', status: 'Active' }
+        { app: 'Jadian', plan: 'Enterprise', cadence: 'Monthly', amount: '$2,999.00', nextBilling: 'Sep 4, 2026', status: 'Active' },
+        { app: 'Othership', plan: 'Business', cadence: 'Monthly', amount: '$199.00', nextBilling: 'Sep 4, 2026', status: 'Active' },
+        { app: 'Provitrac', plan: 'Enterprise', cadence: 'Monthly', amount: '$599.00', nextBilling: 'Aug 24, 2026', status: 'Active' }
       ]
     },
     {
@@ -2353,8 +2402,8 @@
         { inv: 'INV-2026-0010', date: 'Aug 4, 2026', app: 'WorkAware', desc: 'Subscription: WorkAware — Enterprise (monthly)', amount: '$1,798.80', status: 'Paid' }
       ],
       installations: [
-        { app: 'K9SKY', status: 'Purchased', installed: '7/27/2026, 3:44:22 PM', trialEnds: '—' },
-        { app: 'Jadian', status: 'Purchased', installed: '7/27/2026, 3:44:19 PM', trialEnds: '—' }
+        { app: 'K9SKY', status: 'Purchased', installed: 'Jul 27, 2026', trialEnds: '—' },
+        { app: 'Jadian', status: 'Purchased', installed: 'Jul 27, 2026', trialEnds: '—' }
       ],
       subscriptions: [
         { app: 'WorkAware', plan: 'Enterprise', cadence: 'Monthly', amount: '$1,499.00', nextBilling: '—', status: 'Paused' }
@@ -2366,10 +2415,10 @@
         { inv: 'INV-2026-0005', date: 'Jul 23, 2026', app: 'Pace+', desc: 'Subscription: Pace+ — Professional (monthly)', amount: '$824.82', status: 'Paid' }
       ],
       installations: [
-        { app: 'Pace+', status: 'Purchased', installed: '7/24/2026, 9:28:59 AM', trialEnds: '—' }
+        { app: 'Pace+', status: 'Purchased', installed: 'Jul 24, 2026', trialEnds: '—' }
       ],
       subscriptions: [
-        { app: 'Pace+', plan: 'Professional', cadence: 'Monthly', amount: '$699.00', nextBilling: '8/24/2026, 9:28:59 AM', status: 'Active' }
+        { app: 'Pace+', plan: 'Professional', cadence: 'Monthly', amount: '$699.00', nextBilling: 'Aug 24, 2026', status: 'Active' }
       ]
     }
   ];
@@ -3128,6 +3177,7 @@ window.addEventListener('load', function(){
     var nd=document.getElementById('navDashboard');if(nd)nd.classList.add('active');
     var title=document.getElementById('pageTitle');if(title)title.textContent='Dashboard';
     var sub=document.getElementById('pageSub');if(sub)sub.textContent='Monitor your apps, meetings, invoices, and account activity.';
+    var dateDd=document.getElementById('dateDropdown');if(dateDd)dateDd.style.display='';
     var promo=document.getElementById('newPromoBtn');if(promo)promo.style.display='none';
     var inv=document.getElementById('newInvoiceBtn');if(inv)inv.style.display='none';
   }
