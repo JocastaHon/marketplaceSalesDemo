@@ -1193,6 +1193,16 @@
 .dashboard-custom-actions .btn-cancel,.dashboard-custom-actions .btn-save{height:38px;padding:0 16px;}
 @media(max-width:760px){#dateDropdown .dashboard-date-panel{width:min(590px,calc(100vw - 32px));min-width:0;grid-template-columns:1fr}.dashboard-date-presets{border-right:0}.dashboard-custom-panel{border-top:1px solid var(--zo-line)}}
 </style>
+<style>
+#configModalOverlay.view-only .config-field input,
+#configModalOverlay.view-only .config-field textarea{
+  background:#F8FAFC !important;
+  color:#475467 !important;
+  cursor:default !important;
+}
+#configModalOverlay.view-only .modal-footer .btn-save{display:none !important;}
+#configModalOverlay.view-only .modal-footer{justify-content:flex-end;}
+</style>
 </head>
 <body>
 
@@ -1394,28 +1404,28 @@
           <div class="setup-product"><span class="setup-icon">J</span> Jadian</div>
           <div class="setup-client"><span class="name">Client</span><span class="email">client@zenatech.com</span></div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
-          <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Jadian','Client','client@zenatech.com','Sale','8/4/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
+          <div class="setup-action"><button class="icon-btn" title="View setup request" aria-label="View setup request" onclick="openConfigModalView('Jadian','Client','client@zenatech.com','Sale','8/4/2026')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
         </div>
 
         <div class="setup-row">
           <div class="setup-product"><span class="setup-icon">J</span> Jadian</div>
           <div class="setup-client"><span class="name">Sale</span><span class="email">sale@zenatech.com</span></div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
-          <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Jadian','Sale','sale@zenatech.com','Sale','7/27/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
+          <div class="setup-action"><button class="icon-btn" title="View setup request" aria-label="View setup request" onclick="openConfigModalView('Jadian','Sale','sale@zenatech.com','Sale','7/27/2026')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
         </div>
 
         <div class="setup-row">
           <div class="setup-product"><span class="setup-icon">P</span> Pace+</div>
           <div class="setup-client"><span class="name">Testing User</span><span class="email">test@yopmail.com</span></div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
-          <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Pace+','Testing User','test@yopmail.com','Sale','7/24/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
+          <div class="setup-action"><button class="icon-btn" title="View setup request" aria-label="View setup request" onclick="openConfigModalView('Pace+','Testing User','test@yopmail.com','Sale','7/24/2026')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
         </div>
 
         <div class="setup-row">
           <div class="setup-product"><span class="setup-icon">P</span> Provitrac</div>
           <div class="setup-client"><span class="name">Client</span><span class="email">client@zenatech.com</span></div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
-          <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Provitrac','Client','client@zenatech.com','Unassigned','7/24/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
+          <div class="setup-action"><button class="icon-btn" title="View setup request" aria-label="View setup request" onclick="openConfigModalView('Provitrac','Client','client@zenatech.com','Unassigned','7/24/2026')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
         </div>
       </div>
     </div>
@@ -1461,7 +1471,7 @@
           <div class="not-set">Not set</div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
           <div class="deal-date">Aug 4, 2026</div>
-          <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Jadian','Client','client@zenatech.com','Sale','8/4/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
+          <div class="setup-action"><button class="icon-btn" title="View setup request" aria-label="View setup request" onclick="openConfigModalView('Jadian','Client','client@zenatech.com','Sale','Aug 4, 2026')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
         </div>
 
         <div class="full-row">
@@ -1471,7 +1481,7 @@
           <div class="not-set">Not set</div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
           <div class="deal-date">Jul 27, 2026</div>
-          <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Jadian','Sale','sale@zenatech.com','Sale','7/27/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
+          <div class="setup-action"><button class="icon-btn" title="View setup request" aria-label="View setup request" onclick="openConfigModalView('Jadian','Sale','sale@zenatech.com','Sale','Jul 27, 2026')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
         </div>
 
         <div class="full-row">
@@ -1481,7 +1491,7 @@
           <div class="not-set">Not set</div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
           <div class="deal-date">Jul 24, 2026</div>
-          <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Pace+','Testing User','test@yopmail.com','Sale','7/24/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
+          <div class="setup-action"><button class="icon-btn" title="View setup request" aria-label="View setup request" onclick="openConfigModalView('Pace+','Testing User','test@yopmail.com','Sale','Jul 24, 2026')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
         </div>
 
         <div class="full-row">
@@ -1491,7 +1501,7 @@
           <div class="not-set">Not set</div>
           <div><span class="status-pill" style="background:var(--zo-warning-bg);color:var(--zo-warning);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Setup</span></div>
           <div class="deal-date">Jul 24, 2026</div>
-          <div class="setup-action"><button class="btn-outline-configure" onclick="openConfigModal('Provitrac','Client','client@zenatech.com','Unassigned','7/24/2026')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg> Configure</button></div>
+          <div class="setup-action"><button class="icon-btn" title="View setup request" aria-label="View setup request" onclick="openConfigModalView('Provitrac','Client','client@zenatech.com','Unassigned','Jul 24, 2026')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
         </div>
       </div>
     </div>
@@ -2369,8 +2379,34 @@
     document.getElementById('configModalOverlay').style.display = 'flex';
   }
 
+  function openConfigModalView(app, client, email, rep, created){
+    openConfigModal(app, client, email, rep, created);
+    var overlay=document.getElementById('configModalOverlay');
+    overlay.classList.add('view-only');
+    var title=document.getElementById('configAppName');
+    if(title) title.textContent=app+' Setup Request';
+    var url=document.getElementById('configUrl');
+    var tenant=document.getElementById('configTenant');
+    var notes=overlay.querySelector('.config-field textarea');
+    if(url){url.readOnly=true;}
+    if(tenant){tenant.readOnly=true;}
+    if(notes){notes.readOnly=true;notes.value='Setup configuration is view-only for Sales.';}
+    var footerCancel=overlay.querySelector('.modal-footer .btn-cancel');
+    if(footerCancel) footerCancel.textContent='Close';
+  }
+
   function closeConfigModal(){
-    document.getElementById('configModalOverlay').style.display = 'none';
+    var overlay=document.getElementById('configModalOverlay');
+    overlay.style.display = 'none';
+    overlay.classList.remove('view-only');
+    var url=document.getElementById('configUrl');
+    var tenant=document.getElementById('configTenant');
+    var notes=overlay.querySelector('.config-field textarea');
+    if(url) url.readOnly=false;
+    if(tenant) tenant.readOnly=false;
+    if(notes){notes.readOnly=false;notes.value='';}
+    var footerCancel=overlay.querySelector('.modal-footer .btn-cancel');
+    if(footerCancel) footerCancel.textContent='Cancel';
   }
 
   /* ---------------- Invoices & Billing ---------------- */
