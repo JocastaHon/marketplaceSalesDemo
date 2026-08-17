@@ -1203,6 +1203,18 @@
 #configModalOverlay.view-only .modal-footer .btn-save{display:none !important;}
 #configModalOverlay.view-only .modal-footer{justify-content:flex-end;}
 </style>
+
+<style id="invoice-disabled-create-button">
+#newInvoiceView #createInvoiceBtn:disabled{
+  background:#D0D5DD !important;
+  border-color:#D0D5DD !important;
+  color:#FFFFFF !important;
+  cursor:not-allowed !important;
+  box-shadow:none !important;
+  opacity:1 !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -1722,7 +1734,10 @@
     <div style="width:100%;max-width:none;margin:0;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
         <button class="btn-back" onclick="cancelNewInvoice()" style="margin:0;">← Back to Client Billing</button>
-        <button class="btn-cancel" onclick="cancelNewInvoice()">Cancel</button>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn-cancel" onclick="cancelNewInvoice()">Cancel</button>
+          <button class="btn-save" id="createInvoiceBtn" type="button" onclick="createNewInvoice()" disabled>Create Invoice</button>
+        </div>
       </div>
       <div style="margin-bottom:22px;">
         <div style="font-size:25px;font-weight:800;color:var(--zo-heading);">New Invoice</div>
@@ -1749,7 +1764,7 @@
               <div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid #d9e2f2;font-size:17px;font-weight:800;"><span>Total</span><span>$0.00</span></div>
             </div>
           </div>
-          <div class="promo-field full" style="display:flex;justify-content:flex-end;padding-top:16px;border-top:1px solid var(--zo-line);"><button class="btn-save" id="createInvoiceBtn" type="button" onclick="createNewInvoice()" disabled>Create Invoice</button></div>
+
         </div>
       </div>
     </div>
