@@ -300,6 +300,25 @@
   .btn-outline-configure:hover { border-color: var(--zo-navy); background: var(--zo-accent-tint); }
   .setup-action { display: flex; justify-content: flex-start; }
 
+  /* Recent invoices dashboard table */
+  .recent-invoices-panel { padding: 0; overflow: hidden; margin-top: 16px; }
+  .recent-invoices-panel .panel-header { padding: 16px 18px 13px; margin-bottom: 0; }
+  .recent-invoice-row {
+    display: grid;
+    grid-template-columns: 1.05fr 2.2fr .8fr .72fr 18px;
+    align-items: center; gap: 16px;
+    min-height: 47px; padding: 10px 18px;
+    border-top: 1px solid var(--zo-line); font-size: 12.5px;
+  }
+  .recent-invoice-head {
+    min-height: 36px; background: var(--zo-soft); color: var(--zo-slate);
+    font-size: 10.5px; font-weight: 800; letter-spacing: .035em; text-transform: uppercase;
+  }
+  .recent-invoice-row:not(.recent-invoice-head):hover { background: var(--zo-row-hover); }
+  .recent-invoice-id { color: var(--zo-accent); font-weight: 700; cursor: pointer; }
+  .recent-invoice-amount { color: var(--zo-heading); font-weight: 800; }
+  .recent-invoice-chevron { color: var(--zo-slate); text-align: right; }
+
   /* Configure modal */
   .modal-overlay {
     display: none; position: fixed; inset: 0; background: rgba(16,24,40,.45);
@@ -1490,6 +1509,31 @@ button:disabled:hover,
       </div>
     </div>
 
+    <div class="panel recent-invoices-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Recent invoices</div>
+          <div class="panel-sub">Latest billing activity across your clients</div>
+        </div>
+        <button class="view-all-btn" onclick="showView('invoices')">View all</button>
+      </div>
+      <div class="recent-invoice-row recent-invoice-head">
+        <div>Invoice</div><div>Description</div><div>Status</div><div>Amount</div><div></div>
+      </div>
+      <div class="recent-invoice-row">
+        <div class="recent-invoice-id" onclick="showView('invoices')">INV-2026-0148</div><div>App Purchase: Jadian Local</div><div><span class="status-pill" style="background:var(--zo-success-bg);color:var(--zo-success);">Paid</span></div><div class="recent-invoice-amount">$0.00</div><div class="recent-invoice-chevron">›</div>
+      </div>
+      <div class="recent-invoice-row">
+        <div class="recent-invoice-id" onclick="showView('invoices')">INV-2026-0147</div><div>Plan Upgrade: ProvitRac → Enterprise</div><div><span class="status-pill" style="background:var(--zo-success-bg);color:var(--zo-success);">Paid</span></div><div class="recent-invoice-amount">$0.00</div><div class="recent-invoice-chevron">›</div>
+      </div>
+      <div class="recent-invoice-row">
+        <div class="recent-invoice-id" onclick="showView('invoices')">INV-2026-0146</div><div>Plan Upgrade: ProvitRac → Professional</div><div><span class="status-pill" style="background:var(--zo-success-bg);color:var(--zo-success);">Paid</span></div><div class="recent-invoice-amount">$0.00</div><div class="recent-invoice-chevron">›</div>
+      </div>
+      <div class="recent-invoice-row">
+        <div class="recent-invoice-id" onclick="showView('invoices')">INV-2026-0143</div><div>Plan Upgrade: PSPortals → Professional</div><div><span class="status-pill" style="background:var(--zo-success-bg);color:var(--zo-success);">Paid</span></div><div class="recent-invoice-amount">$0.00</div><div class="recent-invoice-chevron">›</div>
+      </div>
+    </div>
+
   </div>
 
   <div class="content" id="setupView" style="display:none;">
@@ -1569,7 +1613,7 @@ button:disabled:hover,
 
   <div class="content" id="invoicesView" style="display:none;">
 
-    <div class="kpi-row" id="billingKpiRow">
+    <div class="kpi-row" id="billingKpiRow" style="display:none;">
       <div class="kpi-card">
         <div class="kpi-icon" style="background:var(--zo-accent-tint); color:var(--zo-navy);"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="kpi-value">3</div>
@@ -1824,7 +1868,7 @@ button:disabled:hover,
   </div>
 
   <div class="content" id="promoView" style="padding-top:4px;">
-    <div class="kpi-row">
+    <div class="kpi-row" style="display:none;" aria-hidden="true">
       <div class="kpi-card">
         <div class="kpi-icon" style="background:var(--zo-accent-tint);color:var(--zo-navy);"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41L13 21l-9-9V3h9l9 9a2 2 0 0 1 0 2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></div>
         <div class="kpi-value" id="promoTotalKpi">3</div><div class="kpi-label">Total Codes</div>
@@ -3121,7 +3165,7 @@ button:disabled:hover,
     document.getElementById('clientDetailSection').style.display = 'none';
     document.getElementById('clientListSection').style.display = '';
     var billingKpis = document.getElementById('billingKpiRow');
-    if (billingKpis) billingKpis.style.display = '';
+    if (billingKpis) billingKpis.style.display = 'none';
     renderClientList();
   }
 
